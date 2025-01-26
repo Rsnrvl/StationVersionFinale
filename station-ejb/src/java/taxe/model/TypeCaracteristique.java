@@ -30,7 +30,7 @@ public class TypeCaracteristique extends ClassMAPTable{
 
     // Constructors
     public TypeCaracteristique() {
-        setNomTable("typecaracteristique");
+        setNomTable("TYPECARACTERISTIQUE");
     }   
 
     @Override
@@ -45,7 +45,7 @@ public class TypeCaracteristique extends ClassMAPTable{
 
     public void createObject(Connection connection) throws Exception {
         String sql = "INSERT INTO typecaracteristique (id, libelle) " +
-                     "VALUES (generate_id('TYP', seq_typecaracteristique.NEXTVAL), ?)";
+                     "VALUES ('TYP' || LPAD(SEQ_TYPECARACTERISTIQUE.NEXTVAL, 6, '0'), ?)";
                      
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, this.getLibelle());

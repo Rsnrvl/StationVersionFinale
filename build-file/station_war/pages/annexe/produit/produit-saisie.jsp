@@ -18,6 +18,7 @@
     try{
     String autreparsley = "data-parsley-range='[8, 40]' required";
     UserEJB u = (user.UserEJB) session.getValue("u");
+    System.out.println("session : " + u);
     String  mapping = "annexe.Produit",
             nomtable = "Produit",
             apres = "annexe/produit/produit-fiche.jsp",

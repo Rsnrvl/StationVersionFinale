@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class UtilDB {
 
     private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-    private static final String DB_USER = "taxe";
-    private static final String DB_PASSWORD = "taxe";
+    private static final String DB_USER = "antema";
+    private static final String DB_PASSWORD = "antema";
 
     static {
         try {

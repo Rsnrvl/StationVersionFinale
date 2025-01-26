@@ -5,134 +5,100 @@
 <%@ page import="taxe.database.UtilDB" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="taxe.model.Commune" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ajouter une Maison</title>
-    <style>
-        .form-container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .success {
-            color: green;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            border-radius: 4px;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #ffebee;
-            border: 1px solid #ffcdd2;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h2>Ajouter une nouvelle maison</h2>
-        
-        <% if (request.getParameter("success") != null) { %>
-            <div class="success">Maison ajoutée avec succès!</div>
-        <% } %>
-        
-        <% if (request.getParameter("error") != null) { %>
-            <div class="error">Erreur: <%= request.getParameter("error") %></div>
-        <% } %>
-        
-        
-        <form action="taxe/insert_maison_process.jsp" method="POST">
-            <input type="hidden" name="idcommune" value="<%= communeTaxe.getId() %>">
+
+<%@ page import="java.io.*" %>
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-fiche">
+                <div class="box">
+                    <div class="box-title with-border">
+                        <h2>Ajouter une nouvelle maison</h2>
+                        <% if (request.getParameter("success") != null) { %>
+                            <div style="color: green; margin-bottom: 20px;">Maison ajoutée avec succès!</div>
+                        <% } %>
             
-            <div class="form-group">
-                <label for="libelle">Libellé:</label>
-                <input type="text" id="libelle" name="libelle" required>
+                        <% if (request.getParameter("error") != null) { %>
+                            <div style="color: red; margin-bottom: 20px;">Erreur: <%= request.getParameter("error") %></div>
+                        <% } %>
+                    </div>
+                    <div class="box-body">
+                        <form action="taxe/insert_maison_process.jsp" method="POST">
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                                <!-- Champ Libellé -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="libelle">Libellé</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="libelle" type="text" style="width: 100%; padding: 8px;" id="libelle" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ Longueur -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="longueur">Longueur</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="longueur" type="number" step="0.01" style="width: 100%; padding: 8px;" id="longueur" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ Largeur -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="largeur">Largeur</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="largeur" type="number" step="0.01" style="width: 100%; padding: 8px;" id="largeur" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ Étages -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="etage">Étages</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="etage" type="number" style="width: 100%; padding: 8px;" id="etage" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ Longitude -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="longitude">Longitude</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="longitude" type="text" style="width: 100%; padding: 8px;" id="longitude" value="0" onblur="calculer('longitude')" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ Latitude -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="latitude">Latitude</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <input name="latitude" type="text" style="width: 100%; padding: 8px;" id="latitude" value="0" onblur="calculer('latitude')" required>
+                                    </td>
+                                </tr>
+                                <!-- Champ ID Propriétaire -->
+                                <tr>
+                                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd;"><label for="idProprietaire">ID Propriétaire</label></th>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">
+                                        <select name="idproprietaire" style="width: 100%; padding: 8px;" id="idproprietaire">
+                                            <%
+                                                try (Connection conn = UtilDB.getConnection()) {
+                                                    ArrayList<Proprietaire> proprietaires = Proprietaire.getAll(conn);
+                                                    for (Proprietaire prop : proprietaires) {
+                                            %>
+                                                <option value="<%= prop.getId() %>">
+                                                    <%= prop.getNom() %>
+                                                </option>
+                                            <%
+                                                    }
+                                                } catch (Exception e) {
+                                                    out.println("Erreur lors du chargement des propriétaires: " + e.getMessage());
+                                                }
+                                            %>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="text-align: center;">
+                                <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer;">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="longueur">Longueur (m):</label>
-                <input type="number" id="longueur" name="longueur" step="0.01" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="largeur">Largeur (m):</label>
-                <input type="number" id="largeur" name="largeur" step="0.01" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="etage">Nombre d'etages:</label>
-                <input type="number" id="etage" name="etage" min="1" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="config">Prix par m2:</label>
-                <input type="number" id="config" name="config" step="0.01" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="longitude">Longitude:</label>
-                <input type="number" id="longitude" name="longitude" step="0.000001" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="latitude">Latitude:</label>
-                <input type="number" id="latitude" name="latitude" step="0.000001" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="idproprietaire">Propriétaire:</label>
-                <select id="idproprietaire" name="idproprietaire" required>
-                    <%
-                        try (Connection conn = UtilDB.getConnection()) {
-                            ArrayList<Proprietaire> proprietaires = Proprietaire.getAll(conn);
-                            for (Proprietaire prop : proprietaires) {
-                    %>
-                        <option value="<%= prop.getId() %>">
-                            <%= prop.getNom() %>
-                        </option>
-                    <%
-                            }
-                        } catch (Exception e) {
-                            out.println("Erreur lors du chargement des propriétaires: " + e.getMessage());
-                        }
-                    %>
-                </select>
-            </div>
-            
-            <button type="submit">Enregistrer</button>
-        </form>
+        </div>
     </div>
-</body>
-</html>
+</div>

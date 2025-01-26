@@ -15,7 +15,7 @@ public class MaisonCaracteristique extends ClassMAPTable {
     
     // Constructors
     public MaisonCaracteristique() {
-        setNomTable("maison_caracteristique");
+        setNomTable("maisoncaracteristique");
     }
     
     // Getters and Setters

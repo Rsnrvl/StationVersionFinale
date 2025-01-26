@@ -15,7 +15,7 @@ public class HistoriqueTaxe extends ClassMAPTable {
     private Date daty;
 
     public HistoriqueTaxe() {
-        setNomTable("historique_taxe");
+        setNomTable("HISTORIQUETAXE");
     }
 
     // Getters and setters

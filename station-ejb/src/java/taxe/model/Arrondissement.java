@@ -13,7 +13,7 @@ public class Arrondissement extends ClassMAPTable {
     private String id;
     private int numero;
     private String nom;
-    private String commune;
+    private String idCommune;
 
     // Constructor
     public Arrondissement() {
@@ -46,11 +46,11 @@ public class Arrondissement extends ClassMAPTable {
     }
 
     public String getCommune() {
-        return commune;
+        return idCommune;
     }
 
     public void setCommune(String commune) {
-        this.commune = commune;
+        this.idCommune = commune;
     }
 
     @Override

@@ -46,7 +46,7 @@ public class Proprietaire extends ClassMAPTable {
     
     public void createObject(Connection connection) throws Exception {
         String sql = "INSERT INTO proprietaire (id, nom, prenom, cin, adresse) " +
-                     "VALUES (generate_id('PRO', seq_proprietaire.NEXTVAL), ?, ?, ?, ?)";
+                     "VALUES ('PRO' || LPAD(seq_proprietaire.NEXTVAL, 6, '0'), ?, ?, ?, ?)";
                      
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, getNom());

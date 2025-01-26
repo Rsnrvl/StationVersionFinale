@@ -1,7 +1,7 @@
 <project name="deploy-ejb-station" default="deploy" basedir="./build-file">
     <property environment="env"/>
 
-    <property name="deploy.dir" value="D:\s5\MrTahiana\wildfly-10\standalone\deployments"/>
+    <property name="deploy.dir" value="C:\Users\Lenovo\Documents\Antema\devoir\s5\MrTahiana\wildfly-10\standalone\deployments"/>
 
     <property name="station-warname" value="station.war"/>
     <property name="station-jarname" value="station-ejb.jar"/>
